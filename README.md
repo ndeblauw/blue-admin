@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/ndeblauw/blue-admin.svg?style=flat-square)](https://packagist.org/packages/ndeblauw/blue-admin)
 ![GitHub Actions](https://github.com/ndeblauw/blue-admin/actions/workflows/main.yml/badge.svg)
 
-Documentation will follow once the pacakge becomes stable
+Documentation will follow once the pacakge becomes stable...
 
 ## Installation
 
