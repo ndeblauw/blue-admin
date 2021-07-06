@@ -41,6 +41,7 @@ class AdminController extends Controller
     public function index()
     {
         $models = ($this->config->CLASS)::all();
+        $models->load($this->config->getIndexLoadList());
 
         return view($this->getView('index'), compact('models'))->with('config', $this->config);
     }

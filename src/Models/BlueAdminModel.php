@@ -31,6 +31,11 @@ class BlueAdminModel
     {
         return property_exists($this, 'title_field') ? $this->title_field : 'title';
     }
+    
+    public function getIndexLoadList()
+    {
+        return property_exists($this, 'index_load') ? $this->index_load : [];
+    }
 
     public function getShowLoadList()
     {
