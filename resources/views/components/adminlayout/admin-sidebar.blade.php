@@ -5,6 +5,15 @@
         <nav class="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
 
             @foreach($menu as $item)
+                
+                {{-- Headers --}}
+                @if(property_exists($item,'header'))
+                    <div class="text-xs uppercase text-gray-400 font-bold ml-2 pt-4 ">
+                        {{$item->header}}
+                    </div>
+
+                    @continue
+                @endif
 
                 {{-- Links without submenu --}}
                 @if(!property_exists($item,'submenu'))
@@ -60,12 +69,6 @@
                     </div>
                 @endif
             @endforeach
-
-            <div class="pt-8 text-xs text-pink-400 flex">
-                <div class="mx-auto ">
-                <i class="fad fa-sparkles"></i> betekent nieuw toegevoegde functie(s)
-                </div>
-            </div>
 
         </nav>
 
