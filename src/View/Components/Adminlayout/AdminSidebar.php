@@ -34,6 +34,10 @@ class AdminSidebar extends Component
 
         foreach ($menu as &$item) {
             $open = false;
+            
+            if(isset($item['header'])) {
+                continue;
+            }
 
             if (isset($item['submenu'])) {
                 foreach ($item['submenu'] as &$subitem) {
