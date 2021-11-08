@@ -19,13 +19,13 @@
                 @if(!property_exists($item,'submenu'))
                     <div>
                         @if(property_exists($item,'active'))
-                            <a href="/{{$item->link}}" class="bg-blue-50 font-bold text-gray-900 group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
-                                <i class="far {{$item->icon}} fa-lg fa-fw text-blue-200 mr-3"></i>
+                            <a href="/{{$item->link}}" class="{{$item->bg_color}} font-bold text-gray-900 group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
+                                <i class="far {{$item->icon}} fa-lg fa-fw {{$item->icon_color_active}} mr-3"></i>
                                 {{$item->title}}
                             </a>
                         @else
                             <a href="/{{$item->link}}" class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
-                                <i class="fal {{$item->icon}} fa-lg fa-fw text-gray-400 group-hover:text-gray-500 mr-3"></i>
+                                <i class="fal {{$item->icon}} fa-lg fa-fw {{$item->icon_color}} group-hover:text-gray-500 mr-3"></i>
                                 {{$item->title}}
                             </a>
                         @endif
