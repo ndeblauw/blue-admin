@@ -31,6 +31,18 @@ class AdminSidebar extends Component
         $value = str_replace('/edit', '', $value);
         $value = str_replace('/create', '', $value);
         $value = str_replace('/for-season', '', $value);
+        
+        foreach ($menu as &$item) {
+            if(isset($item['color'])) {
+                $item['bg_color'] = "bg-{$item['color']}-50";
+                $item['icon_color_active'] = "text-{$item['color']}-200";
+                $item['icon_color'] = "text-{$item['color']}-400";
+            } else {
+                $item['bg_color'] = "bg-blue-50";
+                $item['icon_color_active'] = "text-blue-200";
+                $item['icon_color'] = "text-gray-400";
+            }
+        }
 
         foreach ($menu as &$item) {
             $open = false;
