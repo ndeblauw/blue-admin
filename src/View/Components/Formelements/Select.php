@@ -13,6 +13,7 @@ class Select extends Component
 
     public function __construct(
         string $name,
+        array $options,
         string $label = null,
         string $comment = null,
         string $id = null,
@@ -20,7 +21,6 @@ class Select extends Component
         bool $disabled = false,
         string $size = null,
         string $value = null,
-        array $options,
         bool $allowNullOption = false
     ) {
         parent::__construct($name, $label, null, $id, $comment, $required, $size, $value, $disabled);
