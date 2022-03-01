@@ -21,6 +21,6 @@ class Info extends Component
 
     public function render()
     {
-        return view('components.formelements.info');
+        return view('BlueAdminFormelements::info');
     }
 }
