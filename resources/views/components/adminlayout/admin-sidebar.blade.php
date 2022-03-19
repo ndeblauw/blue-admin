@@ -1,4 +1,5 @@
-<div id="sidebar" class="flex flex-col border-r border-gray-200 pb-0 bg-white overflow-y-auto w-1/6">
+<div id="sidebar" class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-white border-r border-gray-200">
+
 
     <div class="mt-5 flex-grow flex flex-col">
 
