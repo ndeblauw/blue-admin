@@ -6,8 +6,8 @@
                 <div class="leading-loose">
                     <label class="">
                         <input type="radio" class="" name="{{$name}}" value="{{$option}}" id="{{$name}}-{{$option}}"
-                               @if($option == old($name, $value)) checked @endif >
-                        {{$label}}
+                        @if($option == old($name, $value)) checked @endif >
+                        {!! $label  !!}
                     </label>
                 </div>
             @endforeach
