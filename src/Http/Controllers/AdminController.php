@@ -21,6 +21,8 @@ class AdminController extends Controller
     use AdminControllerFormRequestTrait;
     use AdminControllerFilepondTrait;
     use AdminControllerBelongsToManyTrait;
+    
+    const CONFIG = null;
 
     protected $config;
     private $filepond;
