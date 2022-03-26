@@ -5,6 +5,7 @@ namespace Ndeblauw\BlueAdmin\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Ndeblauw\BlueAdmin\Models\Filepond;
 use Ndeblauw\BlueAdmin\Traits\AdminControllerBelongsToManyTrait;
 use Ndeblauw\BlueAdmin\Traits\AdminControllerFilepondTrait;
