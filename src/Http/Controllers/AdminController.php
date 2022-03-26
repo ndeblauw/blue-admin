@@ -29,7 +29,7 @@ class AdminController extends Controller
     {
         $this->filepond = $filepond;
 
-        $configObject = static::CONFIG;
+        $configObject = (static::CONFIG !== null) ? static::CONFIG : $this->findConfigClass();
         $this->config = new $configObject;
     }
 
@@ -200,4 +200,14 @@ class AdminController extends Controller
 
         return redirect($this->config->getIndexUrl());
     }
+    
+    private function findConfigClass(): string
+    {
+        $this_controller_class = get_class($this);
+
+        $config_class = Str::of($this_controller_class)->afterLast('\\')->remove('Controller')->start('App\\BlueAdmin\\');
+
+        return (string) $config_class;
+    }
+
 }
