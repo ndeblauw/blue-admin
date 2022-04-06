@@ -14,11 +14,7 @@
                 </div>
                 <div class="my-auto flex gap-x-2">
                     <x-ba-admin-button href="{{$config->getEditUrl($model->id)}}" class="py-1 bg-blue-500">Edit</x-ba-admin-button>
-                    <form action="{{$config->getDestroyUrl($model->id) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <x-button class="py-1 bg-blue-300">Delete</x-button>
-                    </form>
+                    <x-ba-delete-button action="{{$config->getDestroyUrl($model->id) }}" />
                 </div>
 
             </div>
