@@ -37,6 +37,7 @@ class BlueAdminServiceProvider extends ServiceProvider
 
         // Basic building blocks for blueadmin UI
         Blade::component('ba-admin-button', View\Components\Adminui\AdminButton::class);
+        Blade::component('ba-delete-button', View\Components\Adminui\DeleteButton::class);
         Blade::component('ba-show-info', View\Components\Adminui\ShowInfo::class);
 
         // Basic building blocks for admin forms
