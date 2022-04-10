@@ -3,6 +3,7 @@
 namespace Ndeblauw\BlueAdmin\View\Components\Adminlayout;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class AdminBreadcrumbs extends Component
@@ -18,28 +19,20 @@ class AdminBreadcrumbs extends Component
     {
         $trail = [];
         $prepend = '';
-        foreach ($this->segments as $segment) {
-            switch ($segment) {
-                case 'admin': $title = 'Admin'; break;
-                case 'locations': $title = 'Locaties'; break;
-                case 'seasons': $title = 'Seizoenen'; break;
-                case 'activitytypes': $title = 'Activiteitstypes'; break;
-                case 'organisers': $title = 'Organisatoren'; break;
 
-                case 'activities': $title = 'Activiteiten'; break;
+        foreach ($this->segments as $key => $segment) {
 
-                case 'schools': $title = 'Scholen'; break;
-                case 'users': $title = 'Gebruikers'; break;
+            // Determine name to display
+            $title = ucfirst($segment);
 
-                case 'pages': $title = 'Infopagina\'s'; break;
+            // When a model item is selected, fetch its title
+            if(is_numeric($segment)) {
+                $class_name = 'App\\Models\\' . Str::studly(Str::singular($this->segments[$key-1]));
 
-                case 'reservations': $title = 'Reservaties'; break;
-                case 'reservations-by-activity': $title = 'Reservaties per activiteit'; break;
-                default: $title = 'UNKNOWN'; break;
-            }
-
-            if ($title == 'UNKNOWN' && is_numeric($segment)) {
-                continue;
+                if(class_exists($class_name)) {
+                    $model = $class_name::find($segment);
+                    $title = Str::limit($model->title, 10);
+                }
             }
 
             $trail[] = (object) ['title' => $title, 'url' => $prepend.$segment];
