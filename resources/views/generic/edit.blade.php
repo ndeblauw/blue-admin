@@ -30,8 +30,9 @@
             </div>
 
             <div class="p-4 flex justify-end border-t-2 border-gray-100">
+                <span id="formButtonHelpText" style="visibility: hidden;" class="text-sm px-4 mr-4 py-2 bg-yellow-100 font-semibold text-gray-700">Please wait until the file upload is ready...</span>
                 <x-ba-admin-button href="{{$config->getBackOrIndexUrl()}}" class="py-1 bg-blue-300">Cancel</x-ba-admin-button>&nbsp;&nbsp;
-                <x-button class="bg-blue-500 shadow" type="submit" >Update</x-button>
+                <x-button id="formButton" class="bg-blue-500 shadow" type="submit" >Update</x-button>
             </div>
 
         </div>
