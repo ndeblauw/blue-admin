@@ -28,7 +28,10 @@
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script>
         const inputElement = document.querySelector('.filepond');
-        const pond = FilePond.create( inputElement );
+        const pond = FilePond.create( inputElement, {
+            onaddfilestart: (file) => { isLoadingCheck(); },
+            onprocessfile: (files) => { isLoadingCheck(); }
+        });
         FilePond.setOptions({
             @if($maxFiles !== null) maxFiles: {{$maxFiles}},@endif
             server: {
@@ -60,6 +63,17 @@
             ],
             @endif
         });
+        
+        function isLoadingCheck(){
+            var isLoading = pond.getFiles().filter(x=>x.status !== 5).length !== 0;
+            if(isLoading) {
+                document.getElementById('formButton').disabled = true;
+                document.getElementById('formButtonHelpText').style.visibility = "visible";
+            } else {
+                document.getElementById('formButton').disabled = false;
+                document.getElementById('formButtonHelpText').style.visibility = "hidden";
+            }
+        }
 
     </script>
 @endpush
