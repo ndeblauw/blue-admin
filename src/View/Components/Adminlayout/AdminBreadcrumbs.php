@@ -22,6 +22,12 @@ class AdminBreadcrumbs extends Component
 
         foreach ($this->segments as $key => $segment) {
 
+            // Skip some specific segment names
+            if( in_array($segment, ['filter'])) {
+                $prepend_next_segment = 'Showing only ';
+                continue;
+            }
+
             // Determine name to display
             $title = ucfirst($segment);
 
@@ -35,8 +41,9 @@ class AdminBreadcrumbs extends Component
                 }
             }
 
-            $trail[] = (object) ['title' => $title, 'url' => $prepend.$segment];
+            $trail[] = (object) ['title' => $prepend_next_segment.$title, 'url' => $prepend.$segment];
             $prepend .= $segment.'/';
+            $prepend_next_segment = '';
         }
 
         return view('BlueAdminLayout::admin-breadcrumbs')->with('trail', $trail);
