@@ -19,6 +19,7 @@ class AdminBreadcrumbs extends Component
     {
         $trail = [];
         $prepend = '';
+        $prepend_next_segment = '';
 
         foreach ($this->segments as $key => $segment) {
 
