@@ -201,7 +201,10 @@ class AdminController extends Controller
         }
         $model->delete();
 
-        return redirect($this->config->getIndexUrl());
+        $previous = Str::of(url()->previous());
+        $return = (is_numeric( (string) $previous->afterLast('/'))) ? $previous->beforeLast('/') : $previous;
+
+        return redirect($return);
     }
     
     private function findConfigClass(): string
