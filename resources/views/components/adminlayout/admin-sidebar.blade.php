@@ -1,7 +1,7 @@
 <div id="sidebar" class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-white border-r border-gray-200">
 
 
-    <div class="mt-5 flex-grow flex flex-col">
+    <div class="mt-5 flex-grow flex flex-col overflow-y-auto">
 
         <nav class="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
 
