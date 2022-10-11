@@ -32,11 +32,18 @@ class BlueAdminModel
         return property_exists($this, 'title_field') ? $this->title_field : 'title';
     }
     
+    /* ==|STUFF FOR INDEX VIEW|======================================================== */
     public function getIndexLoadList()
     {
         return property_exists($this, 'index_load') ? $this->index_load : [];
     }
+    
+    public function getIndexTableColumns()
+    {
+        return property_exists($this, 'indexTableColumns') ? $this->indexTableColumns : ['title'];
+    }
 
+    /* ==|STUFF FOR SHOW VIEW|========================================================= */
     public function getShowLoadList()
     {
         return property_exists($this, 'show_load') ? $this->show_load : [];
