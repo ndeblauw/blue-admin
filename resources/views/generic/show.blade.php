@@ -13,8 +13,8 @@
                     </p>
                 </div>
                 <div class="my-auto flex gap-x-2">
-                    <x-ba-admin-button href="{{$config->getEditUrl($model->id)}}" class="py-1 bg-blue-500">Edit</x-ba-admin-button>
-                    <x-ba-delete-button action="{{$config->getDestroyUrl($model->id) }}" />
+                    <x-ba-admin-button href="{{$config->getEditUrl($model->getKey())}}" class="py-1 bg-blue-500">Edit</x-ba-admin-button>
+                    <x-ba-delete-button action="{{$config->getDestroyUrl($model->getKey()) }}" />
                 </div>
 
             </div>
