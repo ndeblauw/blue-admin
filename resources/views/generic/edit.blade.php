@@ -4,7 +4,7 @@
         @ray($errors)
     @endif
 
-    <form role="form" action="{{ $config->getUpdateUrl($model->id) }}" method="POST" enctype="multipart/form-data">
+    <form role="form" action="{{ $config->getUpdateUrl($model->getKey()) }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method('PUT')
