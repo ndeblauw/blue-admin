@@ -8,18 +8,15 @@ trait AdminControllerSelectViewTrait
     {
         $VIEWPATH = $this->config->pathforAdminViews();
 
-        switch ($type) {
-            case 'index':
-                return view()->exists($VIEWPATH.'.index') ? $VIEWPATH.'.index' : 'BlueAdminGeneric::index';
+        return match($type) {
+            'index' => view()->exists($VIEWPATH.'.index') ? $VIEWPATH.'.index' : 'BlueAdminGeneric::index',
 
-            case 'create':
-                return view()->exists($VIEWPATH.'.create') ? $VIEWPATH.'.create' : 'BlueAdminGeneric::create';
 
-            case 'show':
-                return view()->exists($VIEWPATH.'.show') ? $VIEWPATH.'.show' : 'BlueAdminGeneric::show';
+            'create' => view()->exists($VIEWPATH.'.create') ? $VIEWPATH.'.create' : 'BlueAdminGeneric::create',
 
-            case 'edit':
-                return view()->exists($VIEWPATH.'.edit') ? $VIEWPATH.'.edit' : 'BlueAdminGeneric::edit';
-        }
+            'show' => view()->exists($VIEWPATH.'.show') ? $VIEWPATH.'.show' : 'BlueAdminGeneric::show',
+
+            'edit' => view()->exists($VIEWPATH.'.edit') ? $VIEWPATH.'.edit' : 'BlueAdminGeneric::edit',
+        };
     }
 }
