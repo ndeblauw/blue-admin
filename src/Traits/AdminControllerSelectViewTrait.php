@@ -11,6 +11,7 @@ trait AdminControllerSelectViewTrait
         return match($type) {
             'index' => view()->exists($VIEWPATH.'.index') ? $VIEWPATH.'.index' : 'BlueAdminGeneric::index',
 
+            'index_api' => view()->exists($VIEWPATH.'.index_api') ? $VIEWPATH.'.index_api' : 'BlueAdminGeneric::index_api',
 
             'create' => view()->exists($VIEWPATH.'.create') ? $VIEWPATH.'.create' : 'BlueAdminGeneric::create',
 

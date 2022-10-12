@@ -13,7 +13,12 @@ class BlueAdminModel
 
     public function modelname()
     {
-        return substr($this->CLASS, strrpos($this->CLASS, '\\') + 1);
+        return Str::of($this->CLASS)->afterLast('\\', );
+    }
+
+    public function modelsname()
+    {
+        return Str::of($this->CLASS)->afterLast('\\', )->plural()->lower();
     }
 
     public function pathforAdminViews()
@@ -31,13 +36,18 @@ class BlueAdminModel
     {
         return property_exists($this, 'title_field') ? $this->title_field : 'title';
     }
-    
+
     /* ==|STUFF FOR INDEX VIEW|======================================================== */
+    public function getUseAjaxIndex(): bool
+    {
+        return property_exists($this, 'use_ajax_index') ? $this->use_ajax_index : false;
+    }
+
     public function getIndexLoadList()
     {
         return property_exists($this, 'index_load') ? $this->index_load : [];
     }
-    
+
     public function getIndexTableColumns()
     {
         return property_exists($this, 'indexTableColumns') ? $this->indexTableColumns : ['title'];

@@ -22,7 +22,7 @@ class AdminController extends Controller
     use AdminControllerFormRequestTrait;
     use AdminControllerFilepondTrait;
     use AdminControllerBelongsToManyTrait;
-    
+
     const CONFIG = null;
 
     protected $config;
@@ -43,6 +43,12 @@ class AdminController extends Controller
      */
     public function index()
     {
+        if($this->config->getUseAjaxIndex()) {
+            return view($this->getView('index_api'))
+                ->with('config', $this->config)
+                ->with('actions_col_nr', count($this->config->getIndexTableColumns()));
+        }
+
         $models = ($this->config->CLASS)::all();
         $models->load($this->config->getIndexLoadList());
 
@@ -206,7 +212,7 @@ class AdminController extends Controller
 
         return redirect($return);
     }
-    
+
     private function findConfigClass(): string
     {
         $this_controller_class = get_class($this);
