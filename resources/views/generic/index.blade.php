@@ -9,9 +9,13 @@
                         <div class="text-left font-bold text-gray-500 uppercase tracking-wider py-5 ">
                             {{$config->name_to_use}}
                         </div>
-                        <x-ba-admin-button href="{{$config->getCreateUrl()}}" class="py-1 bg-green-500 text-xs my-auto">
-                            {{__('Create New')}}
-                        </x-ba-admin-button>
+                        <div class="my-auto text-sm font-medium flex gap-x-4">
+                            @if( View::exists('admin.'.$config->modelsname().'._form'))
+                                <x-ba-admin-button href="{{$config->getCreateUrl()}}" class="py-1 bg-green-500 text-xs my-auto">
+                                    {{__('Create New')}}
+                                </x-ba-admin-button>
+                            @endif
+                        </div>
                     </div>
 
                     <table class="min-w-full divide-y divide-gray-200" id="indexTable">
