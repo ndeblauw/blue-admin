@@ -11,13 +11,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <script src="https://kit.fontawesome.com/2d1659a0a3.js" crossorigin="anonymous"></script>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-@livewireStyles
-
-<!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <!-- Styles & scripts -->
+    @if(config('blue-admin.vite', false))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @else
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ mix('js/app.js') }}" defer></script>
+    @endif
+    
+    @livewireStyles
 
     <style>
         [x-cloak] {
