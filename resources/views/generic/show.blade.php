@@ -13,7 +13,9 @@
                     </p>
                 </div>
                 <div class="my-auto flex gap-x-2">
-                    <x-ba-admin-button href="{{$config->getEditUrl($model->getKey())}}" class="py-1 bg-blue-500">Edit</x-ba-admin-button>
+                    @if( View::exists('admin.'.$config->modelsname().'._form'))
+                        <x-ba-admin-button href="{{$config->getEditUrl($model->getKey())}}" class="py-1 bg-blue-500">Edit</x-ba-admin-button>
+                    @endif
                     <x-ba-delete-button action="{{$config->getDestroyUrl($model->getKey()) }}" />
                 </div>
 
