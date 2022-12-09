@@ -2,6 +2,8 @@
 
 return [
     'fontawesomekit_url' => 'https://kit.fontawesome.com/0bde3bbac3.js',
+    
+    'vite' => false,
 
     'filepond_temporary_files_disk' => 'local',
     'filepond_temporary_files_path' => 'filepond',
