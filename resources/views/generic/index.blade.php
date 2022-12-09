@@ -46,7 +46,9 @@
                                 @endforeach
                                 <td class="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="{{$config->getShowUrl($model->getKey())}}" class="text-indigo-600 hover:text-indigo-900 mr-4">Details</a>
-                                    <a href="{{$config->getEditUrl($model->getKey())}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    @if( View::exists('admin.'.$config->modelsname().'._form'))
+                                        <a href="{{$config->getEditUrl($model->getKey())}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
