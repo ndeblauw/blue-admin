@@ -8,7 +8,8 @@
     <title>{{session()->get('tenant_name', config('app.name', 'blueAdmin'))}}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=nunito:400,500,600,700" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/2d1659a0a3.js" crossorigin="anonymous"></script>
 
     <!-- Styles & scripts -->
