@@ -1,7 +1,9 @@
 <x-ba-admin-layout>
 
     @ray($errors)
-
+    
+    @php if(!isset($model)) { $model = null; } @endphp
+ 
     <form role="form" action="{{ $config->getStoreUrl() }}" method="POST" enctype="multipart/form-data">
 
         @csrf
