@@ -6,7 +6,7 @@
         <nav class="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
 
             @foreach($menu as $item)
-                
+
                 {{-- Headers --}}
                 @if(property_exists($item,'header'))
                     <div class="text-xs uppercase text-gray-400 font-bold ml-2 pt-4 ">
@@ -37,8 +37,8 @@
                 @if(property_exists($item,'submenu'))
                     <div x-data="{isExpanded: {{ ($open = property_exists($item,'open')) ? 'true' : 'false' }}}" class="">
 
-                        <button class="z-20 group w-full flex items-center mt-2 pl-2 pr-1 py-2 text-sm font-medium rounded-md bg-white {{ $open ? 'text-gray-900 bg-blue-50 font-bold' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} focus:outline-none focus:ring-2 focus:ring-blue-500" @click.prevent="isExpanded = !isExpanded" x-bind:aria-expanded="isExpanded" >
-                            <i class="{{$item->icon}} fa-lg fa-fw {{ $open ? 'far text-blue-200' : 'fal text-gray-400'}} group-hover:text-gray-500 mr-3"></i>
+                        <button class="z-20 group w-full flex items-center mt-2 pl-2 pr-1 py-2 text-sm font-medium rounded-md {{ $open ? 'text-gray-900 font-bold '.$item->bg_color : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} focus:outline-none focus:ring-2 focus:ring-blue-500" @click.prevent="isExpanded = !isExpanded" x-bind:aria-expanded="isExpanded" >
+                            <i class="{{$item->icon}} fa-lg fa-fw fal {{$item->icon_color}} group-hover:text-gray-500 mr-3"></i>
                             {{$item->title}}
                             <svg :class="{ 'text-gray-400 rotate-90': isExpanded, 'text-gray-300': !isExpanded }" x-state:on="Expanded" x-state:off="Collapsed"
                                  class="ml-auto h-5 w-5 transform group-hover:text-gray-400 transition ease-in-out duration-300 text-gray-300" viewBox="0 0 20 20" aria-hidden="true">
@@ -46,8 +46,9 @@
                             </svg>
                         </button>
 
+
                         <div
-                            x-show="isExpanded" class="space-y-1 ml-8 {{ $open ? 'border-l-4 border-blue-50' : 'mt-2'}}"
+                            x-show="isExpanded" class="space-y-1 ml-8 {{ $open ? 'border-l-4 border-gray-100' : 'mt-2'}}"
                             x-transition:enter="transition ease-out duration-150"
                             x-transition:enter-start="opacity-0 transform scale-50"
                             x-transition:enter-end="opacity-100 transform scale-100"
