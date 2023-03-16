@@ -27,6 +27,7 @@ class AdminController extends Controller
 
     protected $config;
     private $filepond;
+    protected ?string $return_path = null;
 
     public function __construct(Filepond $filepond)
     {
@@ -104,7 +105,7 @@ class AdminController extends Controller
             }
         }
 
-        return redirect($this->getReturnPath('create', $model->id));
+        return redirect($this->return_path ?? $this->getReturnPath('create', $model->id));
     }
 
     /**
@@ -190,7 +191,7 @@ class AdminController extends Controller
             \Spatie\MediaLibrary\MediaCollections\Models\Media::setNewOrder($newOrder);
         }
 
-        return redirect($this->getReturnPath('edit', $id));
+        return redirect($this->return_path ?? $this->getReturnPath('edit', $id));
     }
 
     /**
@@ -210,7 +211,7 @@ class AdminController extends Controller
         $previous = Str::of(url()->previous());
         $return = (is_numeric( (string) $previous->afterLast('/'))) ? $previous->beforeLast('/') : $previous;
 
-        return redirect($return);
+        return redirect($this->return_path ?? $return);
     }
 
     private function findConfigClass(): string
