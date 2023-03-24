@@ -20,7 +20,7 @@ When using the Tinymceimage component, don't forget to add `blueadmin/tinymce/up
 
 ```php
 protected $except = [
-  'blueadmin/tinymce/upload'; // add this line
+  'blueadmin/tinymce/upload', // add this line
 ];
 ```
 
