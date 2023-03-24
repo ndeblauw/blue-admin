@@ -16,12 +16,12 @@ composer require ndeblauw/blue-admin
 
 ## Usage
 
-When using the Tinymceimage component, don't forget to add to `\App\Http\Middleware\VerifyCsrfToken.php`
+When using the Tinymceimage component, don't forget to add `blueadmin/tinymce/upload` to the $except list in the `\App\Http\Middleware\VerifyCsrfToken.php` middleware to make sure the image uploads will happen.
 
 ```php
 protected $except = [
-        'blueadmin/tinymce/upload'; // add this line
-    ];
+  'blueadmin/tinymce/upload'; // add this line
+];
 ```
 
 ### Testing
