@@ -3,6 +3,7 @@
 namespace Ndeblauw\BlueAdmin\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class TinymceImageUploadController extends Controller
 {
@@ -10,7 +11,7 @@ class TinymceImageUploadController extends Controller
     {
         $filename = $request->file('file')->getClientOriginalName();
 
-        $path = $request->file('file')->storeAs('uploads', $filename, 'public');
+        $path = $request->file('file')->storeAs('tinymce_uploads', $filename, 'public');
 
         return response()->json(['location'=>"/storage/$path"]);
     }
