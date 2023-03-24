@@ -53,6 +53,7 @@ class BlueAdminServiceProvider extends ServiceProvider
         Blade::component('ba-checkboxes', View\Components\Formelements\Checkboxes::class);
         Blade::component('ba-mediafile', View\Components\Formelements\FilepondUpload::class);
         Blade::component('ba-tagselect', View\Components\Formelements\TagSelect::class);
+        Blade::component('ba-tinymceimage', View\Components\Formelements\Tinymceimage::class);
 
         // Relationship building blocks
         Blade::component('ba-belongsto', View\Components\Formelements\BelongsTo::class);
