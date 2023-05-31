@@ -22,10 +22,12 @@ class Textarea extends Component
         string $value = null,
         int $rows = 6,
         bool $rte = false
+        bool $h2h3 = false
     ) {
         parent::__construct($name, $label, $placeholder, $id, $comment, $required, $size, $value, $disabled);
 
         $this->rows = $rows;
         $this->rte = $rte;
+        $this->h2h3 = $h2h3;
     }
 }
