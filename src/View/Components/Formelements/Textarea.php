@@ -8,6 +8,7 @@ class Textarea extends Component
 {
     const TEMPLATE = 'textarea';
     public bool $rte;
+    public bool $h2h3;
     public int $rows;
 
     public function __construct(
