@@ -28,22 +28,22 @@ trait AdminControllerReturnPathTrait
 
     private function getReturnPath($from = null, $id = null): string
     {
+        if( isset($this->return_path) ) {
+            return $this->return_path;
+        }
+
         if ($from === 'create' && property_exists($this->config, 'afterCreate')) {
-            switch ($this->config->afterCreate) {
-                case 'index':
-                    return $this->config->getIndexUrl();
-                case 'show':
-                    return $this->config->getShowUrl($id);
-            }
+            return match($this->config->afterCreate) {
+                'index' => $this->config->getIndexUrl(),
+                'show' => $this->config->getShowUrl($id),
+            };
         }
 
         if ($from === 'edit' && property_exists($this->config, 'afterEdit')) {
-            switch ($this->config->afterEdit) {
-                case 'index':
-                    return $this->config->getIndexUrl();
-                case 'show':
-                    return $this->config->getShowUrl($id);
-            }
+            return match($this->config->afterEdit) {
+                'index' => $this->config->getIndexUrl(),
+                'show' => $this->config->getShowUrl($id),
+            };
         }
 
         return Session::get('blueadmin.returnpath', $this->config->getIndexUrl());
