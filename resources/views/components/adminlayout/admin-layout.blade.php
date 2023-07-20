@@ -34,6 +34,14 @@
     @stack('blueadmin_header')
 </head>
 <body class="font-sans antialiased h-full">
+@if (Session::has('loginas') )
+    <div class="border-b border-lime-400 bg-lime-100 py-4 text-center text-black">
+        <i class="fa fa-exclamation-triangle text-lime-400"></i>&nbsp;
+        You are impersonating another user (<span class="font-bold">{{auth()->user()->name}}</span>).
+        Don't forget to log out when ready!&nbsp;&nbsp;
+        <a class="rounded bg-lime-400 p-1 text-white" href="{{route('stoploginas', 1)}}"><i class="fas fa-sign-in-alt"></i>&nbsp;Back to Admin</a>
+    </div>
+@endif
 <div>
 
     <!-- Static sidebar for desktop -->
