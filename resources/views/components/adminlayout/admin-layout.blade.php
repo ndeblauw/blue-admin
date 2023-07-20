@@ -32,8 +32,7 @@
         }
     </style>
 
-    {{-- For admin backend statistics --}}
-    @if( config('app.env' === 'production') && config('blue-admin.fathom_site_id', false) )
+    @if( App::environment('production') && config('blue-admin.fathom_site_id', false) )
         <script src="https://cdn.usefathom.com/script.js" data-site="{{config('blue-admin.fathom_site_id')}}" defer></script>
     @endif
     
