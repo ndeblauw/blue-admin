@@ -31,6 +31,11 @@
             background: transparent; /* make scrollbar transparent */
         }
     </style>
+
+    @if(config('blue-admin.fathom_site_id', false))
+        <script src="https://cdn.usefathom.com/script.js" data-site="{{config('blue-admin.fathom_site_id')}}" defer></script>
+    @endif
+    
     @stack('blueadmin_header')
 </head>
 <body class="font-sans antialiased h-full">
