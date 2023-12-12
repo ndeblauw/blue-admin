@@ -14,6 +14,8 @@ trait AdminControllerFilepondTrait
                     $data = is_array($valid[$key]) ? $valid[$key] : [$valid[$key]];
                     $filepond[$key] = $data;
                     unset($valid[$key]);
+                } else {
+                    $filepond[$key] = [];
                 }
             }
         }
