@@ -21,18 +21,23 @@
 </div>
 
 @push('blueadmin_header')
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    @once
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    @endonce
 @endpush
 
 @push('blueadmin_scripts')
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    @once
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    @endonce
+
     <script>
-        const inputElement = document.querySelector('.filepond');
-        const pond = FilePond.create( inputElement, {
-            onaddfilestart: (file) => { isLoadingCheck(); },
-            onprocessfile: (files) => { isLoadingCheck(); }
-        });
-        FilePond.setOptions({
+        const inputElement_{{$id}} = document.getElementById('{{$id}}');
+        const pond_{{$id}} = FilePond.create(inputElement_{{$id}});
+
+        pond_{{$id}}.setOptions({
+            onaddfilestart: (file) => { isLoadingCheck(pond_{{$id}}); },
+            onprocessfile: (files) => { isLoadingCheck(pond_{{$id}}); },
             @if($maxFiles !== null) maxFiles: {{$maxFiles}},@endif
             server: {
                 url: '{{route('filepond.upload')}}',
@@ -63,9 +68,10 @@
             ],
             @endif
         });
-        
-        function isLoadingCheck(){
-            var isLoading = pond.getFiles().filter(x=>x.status !== 5).length !== 0;
+
+        @once
+        function isLoadingCheck($element){
+            var isLoading = $element.getFiles().filter(x=>x.status !== 5).length !== 0;
             if(isLoading) {
                 document.getElementById('formButton').disabled = true;
                 document.getElementById('formButtonHelpText').style.visibility = "visible";
@@ -74,6 +80,7 @@
                 document.getElementById('formButtonHelpText').style.visibility = "hidden";
             }
         }
+        @endonce
 
     </script>
 @endpush
