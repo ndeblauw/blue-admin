@@ -7,6 +7,10 @@
 
             @foreach($menu as $item)
 
+                @if($item->hidden)
+                    @continue
+                @endif
+
                 {{-- Headers --}}
                 @if(property_exists($item,'header'))
                     <div class="text-xs uppercase text-gray-400 font-bold ml-2 pt-4 ">
