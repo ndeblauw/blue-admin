@@ -33,6 +33,7 @@ class AdminSidebar extends Component
         $value = str_replace('/for-season', '', $value);
         
         foreach ($menu as &$item) {
+            $item['hidden'] = false;
             if(isset($item['color'])) {
                 $item['bg_color'] = "bg-{$item['color']}-50";
                 $item['icon_color_active'] = "text-{$item['color']}-200";
@@ -46,6 +47,12 @@ class AdminSidebar extends Component
 
         foreach ($menu as &$item) {
             $open = false;
+
+            if(isset($item['permission'])) {
+                if(!auth()->user()->hasPermissionTo($item['permission'])) {
+                    $item['hidden'] = true;
+                }
+            }
             
             if(isset($item['header'])) {
                 continue;
@@ -62,7 +69,7 @@ class AdminSidebar extends Component
             } else {
                 if ($item['link'] == $value) {
                     $item['active'] = true;
-                    break;
+                    continue;
                 }
             }
 
