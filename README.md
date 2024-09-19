@@ -15,6 +15,15 @@ composer require ndeblauw/blue-admin
 ```
 
 ## Usage
+When using vite, don't forget to add to `tailwind.config.js`the following line
+```js
+export default {
+    content: [
+        // Existing paths
+        './vendor/ndeblauw/blue-admin/resources/**/*.blade.php', // <-- ADD THIS
+    ],
+```
+
 
 When using the Tinymceimage component, don't forget to add `blueadmin/tinymce/upload` to the $except list in the `\App\Http\Middleware\VerifyCsrfToken.php` middleware to make sure the image uploads will happen.
 
