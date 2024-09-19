@@ -14,7 +14,26 @@ You can install the package via composer:
 composer require ndeblauw/blue-admin
 ```
 
+Or manually add the following line to composer.json for the legacy version:
+```
+  "ndeblauw/blue-admin": "^1.0",
+```
+or for the newest version
+```
+  "ndeblauw/blue-admin": "9999999-dev",
+```
+
+
 ## Usage
+When using vite, don't forget to add to `tailwind.config.js`the following line
+```js
+export default {
+    content: [
+        // Existing paths
+        './vendor/ndeblauw/blue-admin/resources/**/*.blade.php', // <-- ADD THIS
+    ],
+```
+
 
 When using the Tinymceimage component, don't forget to add `blueadmin/tinymce/upload` to the $except list in the `\App\Http\Middleware\VerifyCsrfToken.php` middleware to make sure the image uploads will happen.
 
