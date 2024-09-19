@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=nunito:400,500,600,700" rel="stylesheet" />
+    <link href="{{config('blue-admin.font.include', 'https://fonts.bunny.net/css?family=nunito')}}" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/2d1659a0a3.js" crossorigin="anonymous"></script>
 
     <!-- Styles & scripts -->
@@ -20,7 +20,11 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     @endif
     
-    @livewireStyles
+    @if(config('blue-admin.livewire_v3', false))
+        <!-- nothing -->
+    @else
+        @livewireStyles
+    @endif
 
     <style>
         [x-cloak] {
@@ -38,7 +42,7 @@
     
     @stack('blueadmin_header')
 </head>
-<body class="font-sans antialiased h-full">
+<body class="font-sans antialiased h-full" style="font-family: '{{config('blue-admin.font.family', 'Nunito')}}'">
 @if (Session::has('loginas') )
     <div class="border-b border-lime-400 bg-lime-100 py-4 text-center text-black">
         <i class="fa fa-exclamation-triangle text-lime-400"></i>&nbsp;
@@ -77,7 +81,12 @@
     </div>
 </div>
 
-@livewireScripts
+@if(config('blue-admin.livewire_v3', false))
+    @livewireScripts {{-- Always include to have AlpineJs  --}}
+@else
+    @livewireScripts
+@endif
+                
 @stack('blueadmin_scripts')
 </body>
 </html>
