@@ -14,6 +14,16 @@ You can install the package via composer:
 composer require ndeblauw/blue-admin
 ```
 
+Or manually add the following line to composer.json for the legacy version:
+```
+  "ndeblauw/blue-admin": "^1.0",
+```
+or for the newest version
+```
+  "ndeblauw/blue-admin": "9999999-dev",
+```
+
+
 ## Usage
 When using vite, don't forget to add to `tailwind.config.js`the following line
 ```js
