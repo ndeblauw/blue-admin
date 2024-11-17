@@ -26,6 +26,11 @@
         @livewireStyles
     @endif
 
+    @if(config('blue-admin.flux', false))
+        @fluxStyles
+    @endif
+
+
     <style>
         [x-cloak] {
             display: none; /* remove flicker on page load */
@@ -86,6 +91,12 @@
 @else
     @livewireScripts
 @endif
+
+@if(config('blue-admin.flux', false))
+    @fluxScripts
+    <flux:toast />
+@endif
+
                 
 @stack('blueadmin_scripts')
 </body>
