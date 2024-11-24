@@ -17,22 +17,54 @@
 </div>
 
 @if($rte)
+
     @push('blueadmin_scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js" integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ==" crossorigin="anonymous"></script>
-        <script>
-            var editor_config = {
-                relative_urls : false,
-                path_absolute: "{{ URL::to('/') }}/",
-                selector: '.tinymce',
-                menubar: false,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks fullscreen',
-                    'paste help wordcount code'
-                ],
-                toolbar: ' undo redo | @if($h2h3) h2 h3 | @endif  bold italic | link | alignleft aligncenter alignright alignjustify | numlist bullist | outdent indent | removeformat | code | help',
-            }
-            tinymce.init(editor_config);
-        </script>
+
+        @if(config('blue-admin.flux', false))
+            <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+            <script>
+                ClassicEditor
+                    .create(document.querySelector('.tinymce'),{
+                        // Configure the toolbar with only the tools you need
+                        toolbar: [
+                            'bold', 'italic', 'underline', 'strikethrough',
+                            'numberedList', 'bulletedList', 'outdent', 'indent',
+                            'link', 'undo', 'redo'
+                        ],
+                        height: '450px'
+                    }).then(editor => {
+                        // Access the editable area
+                        const editableElement = editor.ui.view.editable.element;
+
+                    // Fix height with JavaScript
+                    editableElement.style.height = '200px'; // Fixed height
+                    editableElement.style.overflowY = 'auto'; // Scrollable on overflow
+                })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            </script>
+
+        @else
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js" integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ==" crossorigin="anonymous"></script>
+
+            <script>
+                var editor_config = {
+                    relative_urls : false,
+                    path_absolute: "{{ URL::to('/') }}/",
+                    selector: '.tinymce',
+                    menubar: false,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace ',
+                        'paste help wordcount code'
+                    ],
+                    toolbar: ' undo redo | @if($h2h3) h2 h3 | @endif  bold italic | link | alignleft aligncenter alignright alignjustify | numlist bullist | outdent indent | removeformat | code | help',
+                }
+                tinymce.init(editor_config);
+            </script>
+
+        @endif
     @endpush
 @endif
