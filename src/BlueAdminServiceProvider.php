@@ -12,6 +12,8 @@ class BlueAdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->checkIfConfigSettingsAreCorrect();
+
         Blade::directive('bind', function ($bind) {
             return '<?php app(Ndeblauw\BlueAdmin\FormDataBinder::class)->bind(' .$bind.'); ?>';
         });
@@ -27,6 +29,7 @@ class BlueAdminServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/layouts', 'BlueAdminLayouts');
         $this->loadViewsFrom(__DIR__.'/../resources/views/generic', 'BlueAdminGeneric');
+
 
         // Load the auxiliary routes
         $this->loadRoutesFrom(__DIR__.'/routes.php');
@@ -113,5 +116,21 @@ class BlueAdminServiceProvider extends ServiceProvider
         $this->app->singleton('blue-admin', function () {
             return new BlueAdmin;
         });
+    }
+
+    private function checkIfConfigSettingsAreCorrect()
+    {
+        if(config('blue-admin.flux-layout', false)) {
+            if(!config('blue-admin.livewire_v3',false)) {
+                abort(400, 'Livewire v3 needs to be supported');
+            }
+            if(!config('blue-admin.vite',false)) {
+                abort(400, 'Vite needs to be supported');
+            }
+            if(!config('blue-admin.flux',false)) {
+                abort(400, 'Flux needs to be supported');
+            }
+        }
+
     }
 }
