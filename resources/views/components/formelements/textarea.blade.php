@@ -7,7 +7,7 @@
                 id="{{ $id }}"
                 rows="{{ $rows }}"
                 placeholder="{!! $placeholder !!}"
-                class="{{ $rte ? 'tinymce' : '' }} max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-lg sm:text-sm {{ $errors->first($name) ? 'border-red-300' : 'border-gray-300' }} rounded-md"
+                class="{{ $rte ? $name.'_rte' : '' }} max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-lg sm:text-sm {{ $errors->first($name) ? 'border-red-300' : 'border-gray-300' }} rounded-md"
                 {{ $required ? 'required' : '' }}
                 {{$disabled}}
             >{{ old($name, $value) }}</textarea>
@@ -24,7 +24,7 @@
             <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
             <script>
                 ClassicEditor
-                    .create(document.querySelector('.tinymce'),{
+                    .create(document.querySelector('.{{$name}}_rte'),{
                         // Configure the toolbar with only the tools you need
                         toolbar: [
                             'bold', 'italic', 'underline', 'strikethrough',
@@ -53,7 +53,7 @@
                 var editor_config = {
                     relative_urls : false,
                     path_absolute: "{{ URL::to('/') }}/",
-                    selector: '.tinymce',
+                    selector: '.{{$name}}_rte',
                     menubar: false,
                     plugins: [
                         'advlist autolink lists link image charmap print preview anchor',
