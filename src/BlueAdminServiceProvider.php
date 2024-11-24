@@ -24,6 +24,8 @@ class BlueAdminServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views/components/formelements', 'BlueAdminFormelements');
         $this->loadViewsFrom(__DIR__.'/../resources/views/components/adminlayout', 'BlueAdminLayout');
         $this->loadViewsFrom(__DIR__.'/../resources/views/components/adminui', 'BlueAdminUi');
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views/layouts', 'BlueAdminLayouts');
         $this->loadViewsFrom(__DIR__.'/../resources/views/generic', 'BlueAdminGeneric');
 
         // Load the auxiliary routes
@@ -61,6 +63,10 @@ class BlueAdminServiceProvider extends ServiceProvider
         // Miscellaneous building blocks
         Blade::component('ba-divider', View\Components\Formelements\Divider::class);
         Blade::component('ba-info', View\Components\Formelements\Info::class);
+
+
+        // FluxLayout building blocks
+        Blade::component('ba-fluxadmin-header', View\Layouts\FluxAdmin\Header::class);
 
 
         /*

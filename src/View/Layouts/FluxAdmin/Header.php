@@ -1,46 +1,38 @@
 <?php
 
-namespace Ndeblauw\BlueAdmin\View\Components\Adminlayout;
+namespace Ndeblauw\BlueAdmin\View\Layouts\FluxAdmin;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
-class AdminLayout extends Component
+class Header extends Component
 {
-    public ?array $sidebar;
-    public ?string $current_route;
+    public array $menu;
+    public array $logo;
+    public string $current_route;
 
-    public function __construct(
-        public ?string $title = null,
-        public ?string $subtitle = null,
-        public ?bool $titleShow = true,
-    ) {}
+    public function __construct()
+    {
+        $this->logo = [
+            'image' =>  $image = config('blue-admin.fluxlayout.logo.image', null),
+            'image_dark' => config('blue-admin.fluxlayout.logo.darkimage',$image),
+            'link' => config('blue-admin.fluxlayout.logo.link', config('app.url')),
+            'name' => config('blue-admin.fluxlayout.logo.name', ''),
+        ];
+        
+        $this->menu = config('blue-admin.fluxmenu.top');
+    }
 
     public function render()
     {
-        $this->sidebarMenuGenerator();
+        $this->current_route = $this->findActiveTopLevelMenuItem();
 
-        return config('blue-admin.flux-layout', true)
-            ? view('BlueAdminLayouts::flux.layout')
-            : view('BlueAdminLayout::admin-layout');
+        return view('BlueAdminLayouts::flux.header');
     }
 
-    private function sidebarMenuGenerator()
+    public function findActiveTopLevelMenuItem()
     {
-        $current_top_level_menu_item = $this->findActiveTopLevelMenuItem();
-
-        $menu = collect(config('blue-admin.fluxmenu.top'))->filter( fn($item) => $item['link'] === $current_top_level_menu_item)->first();
-
-        $this->sidebar = $menu !== null && array_key_exists('sidebar', $menu)
-            ? $menu['sidebar']
-            : null;
-    }
-
-    private function findActiveTopLevelMenuItem()
-    {
-        $this->current_route = Route::current()->uri;
         $routename = Route::currentRouteName();
-
         $fake_index_routename = str($routename)->replace(['show', 'create', 'edit'], 'index')->toString();
         $current_route = Route::has($fake_index_routename)
             ? str(route($fake_index_routename))->replace(config('app.url').'/','')->toString()
@@ -51,7 +43,7 @@ class AdminLayout extends Component
 
         if( $top_routes->isNotEmpty()){
             return $current_route;
-        }
+         }
 
         // Check if it was one of the sidebar routes of a toproute
         $list = collect(config('blue-admin.fluxmenu.top'))
@@ -69,6 +61,6 @@ class AdminLayout extends Component
             return $element['topmenu'];
         }
 
-        return null;
+        return '';
     }
 }
