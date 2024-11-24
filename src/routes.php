@@ -17,6 +17,8 @@ Route::middleware('web')->group( function() {
     Route::get('admin/login-as/stop', [Ndeblauw\BlueAdmin\Http\Controllers\UserLoginAsController::class, 'stopLoginAs'])->name('stoploginas');
     Route::get('admin/login-as/{user}', [Ndeblauw\BlueAdmin\Http\Controllers\UserLoginAsController::class, 'loginAs'])/*->middleware('isadmin')*/->name('loginas');
 
+    Route::get('admin/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('admin.logout');
+
     // API index
     Route::get('blueadmin/api/v1/{modelname}', Ndeblauw\BlueAdmin\Http\Controllers\ApiIndexController::class)->name('blueadmin.api.index');
 
