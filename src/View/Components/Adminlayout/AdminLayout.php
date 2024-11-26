@@ -41,30 +41,23 @@ class AdminLayout extends Component
         $this->current_route = Route::current()->uri;
         $routename = Route::currentRouteName();
 
-        dump($this->current_route);
-        dump($routename);
-
         $fake_index_routename = str($routename)->replace(['show', 'create', 'edit'], 'index')->toString();
         $current_route = Route::has($fake_index_routename)
             ? str(route($fake_index_routename))->replace(config('app.url').'/','')->toString()
-            : Route::current()->uri;
-
-        dump($current_route);
+            : Route::current()->uri; // todo - make more fault tolerant !!! (https etc)
 
         // Check if it was one of the top level routes
         $top_routes = collect(config('blue-admin.fluxmenu.top'))->map( fn($item) => $item['link'])->filter(fn($item) => $current_route == $item);
 
         if( $top_routes->isNotEmpty()){
-            dump('returning CURRENT_ROUTE');
             return $current_route;
         }
 
         // Check if it was one of the sidebar routes of a toproute
         $list = collect(config('blue-admin.fluxmenu.top'))
             ->filter( fn($item) => array_key_exists('sidebar', $item))
-            ->map( fn($item) =>
-            collect($item['sidebar'])->map( fn($l,$k) => ['sidebar' => $l, 'topmenu' => $item['link']])
-            )->values()->flatten(1);
+            ->map( fn($item) => collect($item['sidebar'])->map( fn($l,$k) => ['sidebar' => $l, 'topmenu' => $item['link']]))
+            ->values()->flatten(1);
 
         //ray($list)->label('List of routes');
         //ray($current_route)->label('current route');
@@ -74,8 +67,6 @@ class AdminLayout extends Component
         if(array_key_exists('topmenu', $element ?? [] )) {
             return $element['topmenu'];
         }
-
-        dump('NOTHING FOUNT');
 
         return null;
     }
