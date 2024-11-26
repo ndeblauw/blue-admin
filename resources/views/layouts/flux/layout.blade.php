@@ -79,7 +79,7 @@
         @endif
 
         {{-- Auto generated navlist from informatio in defined menu --}}
-        @if( !isset($navlist) && $sidebar )
+        @if($showSidebar && !isset($navlist) && $sidebar )
         <div class="w-full md:w-[220px] shrink-0 pb-4 mr-10">
             <flux:navlist>
                 @foreach($sidebar as $label => $link)
@@ -94,9 +94,8 @@
         @endif
 
         <div class="flex-1 max-md:pt-6 self-stretch mb-6">
-            {{ is_array($sidebar) ? implode(',', $sidebar) : $sidebar }}
 
-            @if($titleShow && $title)
+            @if($showTitle && $title)
                 <flux:heading size="xl" level="1">{{$title}}</flux:heading>
 
                 @if($subtitle)

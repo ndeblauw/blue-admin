@@ -1,4 +1,4 @@
-<x-ba-admin-layout title="Edit {{$config->name_to_use}} {{$model->id}}" :titleShow="false">
+<x-ba-admin-layout title="Edit {{$config->name_to_use}} {{$model->id}}" :showTitle="false">
 
     @if($errors->count() > 0) @ray($errors) @endif
 

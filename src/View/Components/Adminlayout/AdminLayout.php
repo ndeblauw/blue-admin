@@ -13,7 +13,8 @@ class AdminLayout extends Component
     public function __construct(
         public ?string $title = null,
         public ?string $subtitle = null,
-        public ?bool $titleShow = true,
+        public ?bool $showTitle = true,
+        public ?bool $showSidebar = true,
     ) {}
 
     public function render()

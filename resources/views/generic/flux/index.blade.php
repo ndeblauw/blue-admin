@@ -1,4 +1,4 @@
-<x-ba-admin-layout title="{{$config->name_to_use}}" :titleShow="false">
+<x-ba-admin-layout title="{{$config->name_to_use}}" :showTitle="false">
 
     <style>
         #indexTable_filter input[type="search"] {
