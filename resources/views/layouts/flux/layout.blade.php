@@ -94,7 +94,7 @@
         @endif
 
         <div class="flex-1 max-md:pt-6 self-stretch mb-6">
-            {{implode(',', $sidebar)}}
+            {{ is_array($sidebar) ? implode(',', $sidebar) : $sidebar }}
 
             @if($titleShow && $title)
                 <flux:heading size="xl" level="1">{{$title}}</flux:heading>
