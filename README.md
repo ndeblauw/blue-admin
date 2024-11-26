@@ -23,6 +23,26 @@ or for the newest version
   "ndeblauw/blue-admin": "9999999-dev",
 ```
 
+## Installation in local development
+
+Add to your composer.json
+```
+"repositories": {
+    "blueadmin": {
+        "type": "path",
+        "url": "D:/HERD/blue-admin", // or whatever directory you use
+        "options": {
+            "symlink": true
+        }
+    }
+},
+"require": {
+   ...
+   "ndeblauw/blue-admin": "@dev", 
+   ...
+} 
+```
+
 
 ## Usage
 When using vite, don't forget to add to `tailwind.config.js`the following line
