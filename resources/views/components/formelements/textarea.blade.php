@@ -2,21 +2,25 @@
     <div class="sm:grid sm:grid-cols-6 sm:gap-4 sm:items-start sm:pt-5">
         @include('BlueAdminFormelements::_label')
         <div class="mt-1 sm:mt-0 sm:col-span-5">
-            <textarea
-                name="{{ $name }}"
-                id="{{ $id }}"
-                rows="{{ $rows }}"
-                placeholder="{!! $placeholder !!}"
-                class="{{ $rte ? $name.'_rte' : '' }} max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-lg sm:text-sm {{ $errors->first($name) ? 'border-red-300' : 'border-gray-300' }} rounded-md"
-                {{ $required ? 'required' : '' }}
-                {{$disabled}}
-            >{{ old($name, $value) }}</textarea>
+            @if($rte && config('blue-admin.flux', false))
+                <livewire:rte-editor name="{{ $name }}" content="{!! old($name, $value)  !!}" />
+            @else
+                <textarea
+                    name="{{ $name }}"
+                    id="{{ $id }}"
+                    rows="{{ $rows }}"
+                    placeholder="{!! $placeholder !!}"
+                    class="{{ $rte ? $name.'_rte' : '' }} max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-lg sm:text-sm {{ $errors->first($name) ? 'border-red-300' : 'border-gray-300' }} rounded-md"
+                    {{ $required ? 'required' : '' }}
+                    {{$disabled}}
+                >{!! old($name, $value)  !!}</textarea>
+                @endif
             @include('BlueAdminFormelements::_errorandcomment')
         </div>
     </div>
 </div>
 
-@if($rte)
+@if($rte && !config('blue-admin.flux', false))
 
     @push('blueadmin_scripts')
 

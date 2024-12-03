@@ -4,6 +4,8 @@ namespace Ndeblauw\BlueAdmin;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use Ndeblauw\BlueAdmin\Livewire\RteEditor;
 
 class BlueAdminServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,7 @@ class BlueAdminServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/layouts', 'BlueAdminLayouts');
         $this->loadViewsFrom(__DIR__.'/../resources/views/generic', 'BlueAdminGeneric');
+        $this->loadViewsFrom(__DIR__.'/../resources/views/livewire', 'BlueAdminLivewire');
 
 
         // Load the auxiliary routes
@@ -70,6 +73,10 @@ class BlueAdminServiceProvider extends ServiceProvider
 
         // FluxLayout building blocks
         Blade::component('ba-fluxadmin-header', View\Layouts\FluxAdmin\Header::class);
+
+        // Livewire components
+        Livewire::component('rte-editor', RteEditor::class);
+
 
 
         /*
