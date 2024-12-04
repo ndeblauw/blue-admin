@@ -3,19 +3,20 @@
     <style>
         #indexTable_filter input[type="search"] {
             background-color: rgb(241 245 249) !important;
+            border-radius: 5px;
         }
     </style>
 
     <flux:heading size="xl" level="1" class="flex justify-between items-center mb-2">
         <div>{{$config->name_to_use}}</div>
-
         @if( View::exists('admin.'.$config->modelsname().'._form'))
             <flux:button href="{{$config->getCreateUrl()}}" icon="plus" variant="filled" size="sm">{{__('Create New')}}</flux:button>
         @endif
-
     </flux:heading>
 
     <flux:separator />
+
+    @includeWhen(view()->exists(($view = 'admin.'.$config->modelsname().'._index_top')), $view)
 
     <div class="flex flex-col mt-2">
         <div class="">
@@ -43,7 +44,11 @@
                                             @php $titlefield = $config->titleField() @endphp
                                             {{$model->$titlefield}}
                                         @else
+                                            @if(is_bool($model->$column))
+                                                {{ $model->$column ? 'Yes' : 'No' }}
+                                            @else
                                             {{$model->$column}}
+                                            @endif
                                         @endif
                                     </td>
                                 @endforeach
@@ -70,10 +75,12 @@
         </div>
     </div>
 
-    @push('blueadmin_header')
-        @include('BlueAdminLayout::dataTables')
-    @endpush
+    @includeWhen(view()->exists(($view = 'admin.'.$config->modelsname().'._index_bottom')), $view)
 
+
+@push('blueadmin_header')
+    @include('BlueAdminLayout::dataTables')
+@endpush
 
 </x-ba-admin-layout>
 
