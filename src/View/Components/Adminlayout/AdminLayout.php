@@ -21,7 +21,7 @@ class AdminLayout extends Component
     {
         $this->sidebarMenuGenerator();
 
-        return config('blue-admin.flux-layout', true)
+        return config('blue-admin.flux-layout', false)
             ? view('BlueAdminLayouts::flux.layout')
             : view('BlueAdminLayout::admin-layout');
     }
