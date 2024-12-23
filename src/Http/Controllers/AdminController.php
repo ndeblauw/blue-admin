@@ -205,7 +205,7 @@ class AdminController extends Controller
 
         // If the policy doesn't exist, we can't check it (but issue warning)
         $class = $this->config->CLASS;
-        $policy = 'app\\Policies\\'.class_basename($class).'Policy.php';
+        $policy = 'app'.DIRECTORY_SEPARATOR.'Policies'.DIRECTORY_SEPARATOR.class_basename($class).'Policy.php';
 
         if (!file_exists(base_path($policy))) {
             Log::warning('Policies enabled, but no <strong>'.$policy.'</strong> found for <strong>'.$class.'</strong>.');
