@@ -37,11 +37,6 @@ class AdminController extends Controller
         $this->config = new $configObject;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if($this->config->getUseAjaxIndex()) {
@@ -56,11 +51,6 @@ class AdminController extends Controller
         return view($this->getView('index'), compact('models'))->with('config', $this->config);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         $this->setReturnPathSessionVariable();
@@ -74,12 +64,6 @@ class AdminController extends Controller
         return view($this->getView('create'))->with('config', $this->config);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // A - Validate the request data
@@ -108,13 +92,7 @@ class AdminController extends Controller
         return redirect($this->return_path ?? $this->getReturnPath('create', $model->id));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(int $id)
     {
         $model = ($this->config->CLASS)::findOrFail($id);
         $model->load($this->config->getShowLoadList());
@@ -127,13 +105,7 @@ class AdminController extends Controller
             ->with('config', $this->config);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(int $id)
     {
         $this->setReturnPathSessionVariable($id);
         $model = ($this->config->CLASS)::findOrFail($id);
@@ -142,14 +114,7 @@ class AdminController extends Controller
             ->with('config', $this->config);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         // A - Validate the request data
         $request = $this->getValidatedRequestObject();
@@ -194,13 +159,7 @@ class AdminController extends Controller
         return redirect($this->return_path ?? $this->getReturnPath('edit', $id));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $model = ($this->config->CLASS)::findOrFail($id);
         if ($this->config->has_policy) {
