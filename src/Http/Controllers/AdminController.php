@@ -3,8 +3,10 @@
 namespace Ndeblauw\BlueAdmin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Ndeblauw\BlueAdmin\Models\Filepond;
 use Ndeblauw\BlueAdmin\Traits\AdminControllerBelongsToManyTrait;
@@ -39,6 +41,8 @@ class AdminController extends Controller
 
     public function index()
     {
+        $this->policyCheck('viewAny');
+
         if($this->config->getUseAjaxIndex()) {
             return view($this->getView('index_api'))
                 ->with('config', $this->config)
@@ -55,6 +59,8 @@ class AdminController extends Controller
     {
         $this->setReturnPathSessionVariable();
 
+        $this->policyCheck('create');
+
         if ($this->dealWithPrefillInputs($request)) {
             $parameters = $this->extractNonPrefillParameters($request);
 
@@ -66,6 +72,9 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        // Check if the user has the right to store a new record
+        $this->policyCheck('create');
+
         // A - Validate the request data
         $request = $this->getValidatedRequestObject();
         $valid = $request->validated();
@@ -97,6 +106,8 @@ class AdminController extends Controller
         $model = ($this->config->CLASS)::findOrFail($id);
         $model->load($this->config->getShowLoadList());
 
+        $this->policyCheck('view', $model);
+
         $attributesToShow = $this->config->getAttributesToShow()
             ?? array_diff(array_keys($model->getAttributes()), ['deleted_at', 'created_at', 'updated_at', 'tenant_id', 'iid']);
 
@@ -109,6 +120,8 @@ class AdminController extends Controller
     {
         $this->setReturnPathSessionVariable($id);
         $model = ($this->config->CLASS)::findOrFail($id);
+
+        $this->policyCheck('update', $model);
 
         return view($this->getView('edit'), compact('model'))
             ->with('config', $this->config);
@@ -124,8 +137,9 @@ class AdminController extends Controller
         $filepond = $this->filepondPreparations($valid);
         $belongsToMany = $this->belongsToManyPreparations($valid);
 
-        // C - Update the model
+        // C - Update the model, check user rights & update
         $model = ($this->config->CLASS)::findOrFail($id);
+        $this->policyCheck('update', $model);
         $model->update($valid);
 
         // D1 - Deal with relations - belongsToMany
@@ -162,9 +176,9 @@ class AdminController extends Controller
     public function destroy(int $id)
     {
         $model = ($this->config->CLASS)::findOrFail($id);
-        if ($this->config->has_policy) {
-            Gate::authorize('delete', $model);
-        }
+
+        $this->policyCheck('delete', $model);
+
         $model->delete();
 
         $previous = Str::of(url()->previous());
@@ -182,4 +196,27 @@ class AdminController extends Controller
         return (string) $config_class;
     }
 
+    private function policyCheck(string $ability, ?Model $model = null): void
+    {
+        // Do not check for policies if they are disabled for this model
+        if (!$this->config->usePolicy() ) {
+            return;
+        }
+
+        // If the policy doesn't exist, we can't check it (but issue warning)
+        $class = $this->config->CLASS;
+        $policy = 'app\\Policies\\'.class_basename($class).'Policy.php';
+
+        if (!file_exists(base_path($policy))) {
+            Log::warning('Policies enabled, but no <strong>'.$policy.'</strong> found for <strong>'.$class.'</strong>.');
+            return;
+        }
+
+        // Call the authorise method on the policy, with the model or the class depending on the situation
+        if($model) {
+            $this->authorize($ability, $model);
+        } else {
+            $this->authorize($ability, $this->config->CLASS);
+        }
+    }
 }

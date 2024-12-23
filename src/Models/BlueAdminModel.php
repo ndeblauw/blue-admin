@@ -63,4 +63,25 @@ class BlueAdminModel
     {
         return property_exists($this, 'attributesToShow') ? $this->attributesToShow : null;
     }
+
+    // Stuff for policies --------------------------------------------------------------
+    public function usePolicy()
+    {
+        // Check if policy is explicitly enabled for this model -> return true
+        if ($this->has_policy) {
+            return true;
+        }
+
+        // Check if globally enabled in config
+        if (!config('blue-admin.use_model_policies', false)) {
+            return false;
+        }
+
+        // Check if policy is explicitly disabled for this model -> return false
+/*        if ($this->doesnothave_policy) {
+            return false;
+        }*/
+
+        return true;
+    }
 }
