@@ -38,10 +38,6 @@
     <flux:dropdown position="top" align="start">
         <flux:navbar.item icon-trailing="chevron-down">{{auth()->user()->name}}</flux:navbar.item>
 
-        {{-- todo: include conditionally if there are avatars
-        <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
-        --}}
-
         <flux:menu>
             {{-- todo: remove this from blueadmin --}}
             <flux:menu.radio.group>

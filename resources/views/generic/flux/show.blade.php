@@ -1,25 +1,23 @@
-<x-ba-admin-layout title="Details for {{$model->title ?? $model->name}}">
+<x-ba-admin-layout title="Details for {{$model->title ?? $model->name}}" :showTitle="false">
 
-        <div class="bg-white shadow overflow-hidden sm:rounded-b-lg border-t-2 border-{{$config->color ?? 'blue-500'}}">
+    <flux:heading size="xl" level="1" class="flex justify-between items-center mb-2">
+        <div>Details for {{$model->title ?? $model->name}}</div>
 
-            {{-- Card Top Header --}}
-            <div class="px-4 py-5 sm:px-6 flex justify-between bg-gray-50">
-                <div>
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        {{__('Details for')}} <span class="font-bold">{{$model->title}}</span>
-                    </h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                        {{ __('Record of type') }} {{$config->name_to_use}}
-                    </p>
-                </div>
-                <div class="my-auto flex gap-x-2">
-                    @if( View::exists('admin.'.$config->modelsname().'._form'))
-                        <x-ba-admin-button href="{{$config->getEditUrl($model->getKey())}}" class="py-1 bg-blue-500">Edit</x-ba-admin-button>
-                    @endif
-                    <x-ba-delete-button action="{{$config->getDestroyUrl($model->getKey()) }}" />
-                </div>
+        <div class="flex gap-x-4">
+            @if( View::exists('admin.'.$config->modelsname().'._form'))
+                <flux:button href="{{$config->getEditUrl($model->getKey())}}" icon="pencil" variant="filled" size="sm">Edit</flux:button>
+            @endif
+            <x-ba-delete-button action="{{$config->getDestroyUrl($model->getKey()) }}" />
+        </div>
 
-            </div>
+
+    </flux:heading>
+
+    <flux:separator />
+
+
+    <div class="mt-8 overflow-hidden border border-zinc-200 rounded-lg">
+
 
             <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">
