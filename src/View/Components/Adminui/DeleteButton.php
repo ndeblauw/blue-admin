@@ -17,6 +17,10 @@ class DeleteButton extends Component
 
     public function render()
     {
+        if(config('blue-admin.flux-layout', false)) {
+            return view('BlueAdminUi::flux.button-delete');
+        }
+
         return view('BlueAdminUi::button-delete');
     }
 }
