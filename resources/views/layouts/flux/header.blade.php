@@ -35,17 +35,23 @@
     </flux:navbar>
     --}}
 
-    <flux:dropdown position="top" align="start">
-        <flux:navbar.item icon-trailing="chevron-down">{{auth()->user()->name}}</flux:navbar.item>
+    <flux:dropdown position="top" align="start" >
+
+            <flux:navbar.item icon-trailing="chevron-down" @class(["!bg-pink-50 !border-pink-500 border" => session()->has('loginas')]) >
+                <span class="flex items-center gap-x-2">
+                    @if(session()->has('loginas')) <flux:icon name="shield-exclamation" variant="mini" class="text-pink-500 dark:text-pink-300"/> @endif
+                    @if(session()->get('no_antenna_scope', false)) <flux:icon name="globe-alt" variant="mini" /> @endif
+                    {{auth()->user()->name}}
+                </span>
+            </flux:navbar.item>
 
         <flux:menu>
-            {{-- todo: remove this from blueadmin --}}
-            <flux:menu.radio.group>
-                <flux:menu.radio checked>Focus op mijn antenne</flux:menu.radio>
-                <flux:menu.radio>Overkoepelend</flux:menu.radio>
-            </flux:menu.radio.group>
+            @includeIf('admin._parts.usermenu')
 
-            <flux:menu.separator />
+            @if(session()->has('loginas'))
+                <flux:menu.item href="{{route('stoploginas')}}" icon="shield-exclamation" class="!text-pink-500">Stop login as</flux:menu.item>
+                <flux:menu.separator />
+            @endif
 
             <flux:menu.item href="{{route('admin.logout')}}" icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
         </flux:menu>

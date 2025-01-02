@@ -4,22 +4,23 @@
         <div>Details for {{$model->title ?? $model->name}}</div>
 
         <div class="flex gap-x-4">
+            @if(auth()->user()->isAdmin() && get_class($model) === \App\Models\User::class)
+                <flux:button href="{{route('loginas', ['user' => $model])}}" icon="shield-exclamation" variant="filled" size="sm" class="!text-pink-500 hover:!bg-pink-50">Impersonate</flux:button>
+            @endif
+
             @if( View::exists('admin.'.$config->modelsname().'._form'))
                 <flux:button href="{{$config->getEditUrl($model->getKey())}}" icon="pencil" variant="filled" size="sm">Edit</flux:button>
             @endif
             <x-ba-delete-button action="{{$config->getDestroyUrl($model->getKey()) }}" />
         </div>
 
-
     </flux:heading>
 
     <flux:separator />
 
-
     <div class="mt-8 overflow-hidden border border-zinc-200 rounded-lg">
 
-
-            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+            <div class="px-4 py-5 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">
                     @foreach($attributesToShow as $attribute)
                         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-6">
@@ -36,11 +37,12 @@
 
                 </dl>
             </div>
-            <div class="text-sm text-gray-400 px-6 float-right">
-                Last updated <span class="font-bold">{{$model->updated_at->diffForHumans()}}</span> ({{$model->updated_at}})
-                <span class="text-blue-300">|</span>
-                Created <span class="font-bold">{{$model->created_at->diffForHumans()}}</span> ({{$model->created_at}})
-            </div>
+
+        </div>
+        <div class="text-xs mt-1 text-zinc-400 pr-2 float-right">
+            Last updated <span class="font-bold">{{$model->updated_at->diffForHumans()}}</span> ({{$model->updated_at}})
+            <span class="text-zinc-500">|</span>
+            Created <span class="font-bold">{{$model->created_at->diffForHumans()}}</span> ({{$model->created_at}})
         </div>
 
 
