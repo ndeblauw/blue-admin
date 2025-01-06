@@ -54,7 +54,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js" integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ==" crossorigin="anonymous"></script>
 
             <script>
-                var editor_config = {
+                var editor_config_{{$name}} = {
                     relative_urls : false,
                     path_absolute: "{{ URL::to('/') }}/",
                     selector: '.{{$name}}_rte',
@@ -66,7 +66,7 @@
                     ],
                     toolbar: ' undo redo | @if($h2h3) h2 h3 | @endif  bold italic | link | alignleft aligncenter alignright alignjustify | numlist bullist | outdent indent | removeformat | code | help',
                 }
-                tinymce.init(editor_config);
+                tinymce.init(editor_config_{{$name}});
             </script>
 
         @endif
