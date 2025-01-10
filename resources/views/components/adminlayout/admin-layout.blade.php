@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if(config('blue-admin.favicon', false))
+        <link rel="icon" href="{{ asset(config('blue-admin.favicon')) }}" type="image/x-icon"/>
+    @endif
 
     <title>{{session()->get('tenant_name', config('app.name', 'blueAdmin'))}}</title>
 
