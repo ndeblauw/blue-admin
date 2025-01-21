@@ -196,7 +196,7 @@ class AdminController extends Controller
         return (string) $config_class;
     }
 
-    private function policyCheck(string $ability, ?Model $model = null): void
+    protected function policyCheck(string $ability, ?Model $model = null): void
     {
         // Do not check for policies if they are disabled for this model
         if (!$this->config->usePolicy() ) {
