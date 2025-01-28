@@ -15,6 +15,7 @@ use Ndeblauw\BlueAdmin\Traits\AdminControllerFormRequestTrait;
 use Ndeblauw\BlueAdmin\Traits\AdminControllerPrefillTrait;
 use Ndeblauw\BlueAdmin\Traits\AdminControllerReturnPathTrait;
 use Ndeblauw\BlueAdmin\Traits\AdminControllerSelectViewTrait;
+use Spatie\Permission\Models\Permission;
 
 class AdminController extends Controller
 {
@@ -209,6 +210,15 @@ class AdminController extends Controller
 
         if (!file_exists(base_path($policy))) {
             Log::warning('Policies enabled, but no <strong>'.$policy.'</strong> found for <strong>'.$class.'</strong>.');
+
+            $permission = Str::of($this->config->CLASS)->afterLast('\\')->snake().'-'.$ability;
+            if(Permission::where('name', $permission)->exists()) {
+                Log::warning('But good backup found, as permission exists: <strong>'.$permission.'</strong>, so checking with that');
+                if( ! auth()->user()->can($permission) ) {
+                    abort(403, 'You are not allowed to perform this action.');
+                }
+            }
+
             return;
         }
 
