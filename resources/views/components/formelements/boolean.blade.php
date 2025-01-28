@@ -4,10 +4,11 @@
         <div class="mt-1 sm:mt-0 sm:col-span-5">
             <label>
                 <input type="hidden" name="{{$name}}" value="0">
-                <input type="checkbox" id="{{$id}}" name="{{$name}}" value="1"
-                       class="focus:ring-indigo-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                <input {{ ($disabled) ? 'disabled' : '' }}
+                        type="checkbox" id="{{$id}}" name="{{$name}}" value="1"
+                       class="focus:ring-indigo-500 h-4 w-4 text-blue-600 border-gray-300 rounded {{ ($disabled) ? '!text-blue-200' : '' }}"
                        @if(old($name,$value)) checked @endif >
-                {{ ($legend =='') ? 'Yes': $legend}}
+                <span class="{{ ($disabled) ? 'text-gray-400' : '' }}">{{ ($legend =='') ? 'Yes': $legend}}</span>
             </label>
             @include('BlueAdminFormelements::_errorandcomment')
         </div>
