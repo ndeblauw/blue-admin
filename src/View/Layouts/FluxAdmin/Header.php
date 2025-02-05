@@ -36,7 +36,7 @@ class Header extends Component
         $fake_index_routename = str($routename)->replace(['show', 'create', 'edit'], 'index')->toString();
         $current_route = Route::has($fake_index_routename)
             ? str(route($fake_index_routename))->replace(config('app.url').'/','')->toString()
-            : Route::current()->uri;
+            : Route::current()?->uri;
 
         // Check if it was one of the top level routes
         $top_routes = collect(config('blue-admin.fluxmenu.top'))->map( fn($item) => $item['link'])->filter(fn($item) => $current_route == $item);
