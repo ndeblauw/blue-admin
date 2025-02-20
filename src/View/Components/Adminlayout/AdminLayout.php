@@ -3,6 +3,7 @@
 namespace Ndeblauw\BlueAdmin\View\Components\Adminlayout;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class AdminLayout extends Component
@@ -43,7 +44,7 @@ class AdminLayout extends Component
         $routename = Route::currentRouteName();
 
         $fake_index_routename = str($routename)->replace(['show', 'create', 'edit'], 'index')->toString();
-        $current_route = Route::has($fake_index_routename)
+        $current_route = Str::of($fake_index_routename)->contains('.index') && Route::has($fake_index_routename)
             ? str(route($fake_index_routename))->replace(config('app.url').'/','')->toString()
             : Route::current()->uri; // todo - make more fault tolerant !!! (https etc)
 
