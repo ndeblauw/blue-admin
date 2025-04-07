@@ -22,13 +22,13 @@
 
 @push('blueadmin_header')
     @once
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     @endonce
 @endpush
 
 @push('blueadmin_scripts')
     @once
-        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     @endonce
 
     <script>
