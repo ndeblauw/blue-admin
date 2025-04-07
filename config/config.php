@@ -6,6 +6,8 @@ return [
     'vite' => false,
     'livewire_v3' => false,
 
+    'ckeditor' => true,
+
     'font' => [
         'include' => 'https://fonts.bunny.net/css?family=sofia-sans',
         'family' => 'Sofia Sans',
