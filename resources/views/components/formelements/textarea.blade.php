@@ -25,7 +25,11 @@
     @push('blueadmin_scripts')
 
         @if(config('blue-admin.ckeditor', true))
+
+            @once
             <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+            @endonce
+                    
             <script>
                 ClassicEditor
                     .create(document.querySelector('.{{$name}}_rte'),{
@@ -50,6 +54,10 @@
             </script>
 
         @else
+
+            @once
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js" integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ==" crossorigin="anonymous"></script>
+            @endonce
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js" integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ==" crossorigin="anonymous"></script>
 
