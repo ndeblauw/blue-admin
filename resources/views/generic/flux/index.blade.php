@@ -47,7 +47,7 @@
                                             @if(is_bool($model->$column))
                                                 {{ $model->$column ? 'Yes' : 'No' }}
                                             @else
-                                            {{$model->$column}}
+                                                {{data_get($model, $column)}}
                                             @endif
                                         @endif
                                     </td>
