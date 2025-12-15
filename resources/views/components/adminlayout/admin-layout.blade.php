@@ -29,7 +29,7 @@
         @livewireStyles
     @endif
 
-    @if(config('blue-admin.flux', false) && (config('blue-admin.flux-version') === 'v1'))
+    @if(config('blue-admin.flux', false) && (config('blue-admin.flux-version','v1') === 'v1'))
         @fluxStyles
     @endif
 
