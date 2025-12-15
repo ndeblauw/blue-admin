@@ -19,7 +19,10 @@
     <!-- Styles & scripts -->
     <style>[x-cloak] {display: none; /* remove flicker on page load */}</style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @fluxStyles
+
+    @if(config('blue-admin.flux-version', 'v1') == 'v1')
+        @fluxStyles
+    @endif
 
     @if( App::environment('production') && config('blue-admin.fathom_site_id', false) )
         <script src="https://cdn.usefathom.com/script.js" data-site="{{config('blue-admin.fathom_site_id')}}" defer></script>

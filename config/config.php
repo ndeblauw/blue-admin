@@ -8,6 +8,10 @@ return [
 
     'ckeditor' => true,
 
+    'flux' => false,
+    'flux-version' => 'v1',
+    'flux-layout' => false,
+
     'font' => [
         'include' => 'https://fonts.bunny.net/css?family=sofia-sans',
         'family' => 'Sofia Sans',
