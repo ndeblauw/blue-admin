@@ -20,7 +20,7 @@
     <style>[x-cloak] {display: none; /* remove flicker on page load */}</style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @if(config('blue-admin.flux-version') === 'v1')
+    @if(config('blue-admin.flux-version', 'v1') == 'v1')
         @fluxStyles
     @endif
 
