@@ -223,10 +223,10 @@ class AdminController extends Controller
         }
 
         // Call the authorise method on the policy, with the model or the class depending on the situation
-        if($model) {
-            $this->authorize($ability, $model);
+        if ($model) {
+            Gate::authorize($ability, $model);
         } else {
-            $this->authorize($ability, $this->config->CLASS);
+            Gate::authorize($ability, $this->config->CLASS);
         }
     }
 }
