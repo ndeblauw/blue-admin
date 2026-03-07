@@ -128,8 +128,8 @@ class BlueAdminServiceProvider extends ServiceProvider
     private function checkIfConfigSettingsAreCorrect()
     {
         if(config('blue-admin.flux-layout', false)) {
-            if(!config('blue-admin.livewire_v3',false)) {
-                abort(400, 'Livewire v3 needs to be supported');
+            if(!config('blue-admin.livewire_v3', false) && !config('blue-admin.livewire_v4', true)) {
+                abort(400, 'Livewire needs to be supported');
             }
             if(!config('blue-admin.vite',false)) {
                 abort(400, 'Vite needs to be supported');

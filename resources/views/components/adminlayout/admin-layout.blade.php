@@ -23,14 +23,18 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     @endif
     
-    @if(config('blue-admin.livewire_v3', false))
+    @if(config('blue-admin.livewire_v3', false) || config('blue-admin.livewire_v4', true))
         <!-- nothing -->
     @else
         @livewireStyles
     @endif
 
-    @if(config('blue-admin.flux', false) && (config('blue-admin.flux-version','v1') == 'v1'))
-        @fluxStyles
+    @if(config('blue-admin.flux', false))
+        @if(config('blue-admin.flux-version','v2') == 'v2')
+            @fluxAppearance
+        @else
+            @fluxStyles
+        @endif
     @endif
 
     <style>
@@ -88,7 +92,7 @@
     </div>
 </div>
 
-@if(config('blue-admin.livewire_v3', false))
+@if(config('blue-admin.livewire_v3', false) || config('blue-admin.livewire_v4', true))
     @livewireScripts {{-- Always include to have AlpineJs  --}}
 @else
     @livewireScripts
