@@ -5,11 +5,12 @@ return [
     
     'vite' => false,
     'livewire_v3' => false,
+    'livewire_v4' => true,
 
     'ckeditor' => true,
 
     'flux' => false,
-    'flux-version' => 'v1',
+    'flux-version' => 'v2',
     'flux-layout' => false,
 
     'font' => [
