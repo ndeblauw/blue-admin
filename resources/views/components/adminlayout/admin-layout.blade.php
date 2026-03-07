@@ -30,10 +30,10 @@
     @endif
 
     @if(config('blue-admin.flux', false))
-        @if(config('blue-admin.flux-version','v2') == 'v1')
-            @fluxStyles
-        @else
+        @if(config('blue-admin.flux-version','v2') == 'v2')
             @fluxAppearance
+        @else
+            @fluxStyles
         @endif
     @endif
 

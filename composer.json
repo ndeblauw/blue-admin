@@ -24,7 +24,7 @@
         "spatie/laravel-permission": "^4.0|^5.0|^6.0"
     },
     "suggest": {
-        "livewire/flux": "^2.0 Required when enabling the Flux layout support."
+        "livewire/flux": "^2.0.0 Required when enabling the Flux layout support."
     },
     "require-dev": {
         "orchestra/testbench": "^6.0|^8.0",
