@@ -20,11 +20,7 @@
     <style>[x-cloak] {display: none; /* remove flicker on page load */}</style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @if(config('blue-admin.flux-version', 'v2') == 'v2')
-        @fluxAppearance
-    @else
-        @fluxStyles
-    @endif
+    @fluxStyles
 
     @if( App::environment('production') && config('blue-admin.fathom_site_id', false) )
         <script src="https://cdn.usefathom.com/script.js" data-site="{{config('blue-admin.fathom_site_id')}}" defer></script>
@@ -32,16 +28,15 @@
 
     @stack('blueadmin_header')
 </head>
-<body class="min-h-screen bg-white dark:bg-zinc-800" style="font-family: Inter">
+<body class="min-h-screen bg-white" style="font-family: Inter">
 
 <x-ba-fluxadmin-header/>
 
 {{-- only in case of mobile --}}
-<flux:sidebar stashable sticky class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
+<flux:sidebar stashable sticky class="lg:hidden bg-zinc-50 border-r border-zinc-200">
     <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-    <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="px-2 dark:hidden" />
-    <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." class="px-2 hidden dark:flex" />
+    <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="px-2" />
 
     <flux:navlist variant="outline">
         <flux:navlist.item icon="home" href="#" current>Home</flux:navlist.item>
