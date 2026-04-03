@@ -1,8 +1,7 @@
-<flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+<flux:header container class="bg-zinc-50 border-b border-zinc-200">
     <flux:sidebar.toggle class="lg:hidden" icon="bars-2" />
 
-    <flux:brand :href="$logo['link']" target="_blank" :logo="$logo['image']" :name="$logo['name']" class="max-lg:hidden dark:hidden" />
-    <flux:brand :href="$logo['link']" :logo="$logo['image_dark']" target="_blank" :name="$logo['name']" class="max-lg:!hidden hidden dark:flex" />
+    <flux:brand :href="$logo['link']" target="_blank" :logo="$logo['image']" :name="$logo['name']" class="max-lg:hidden" />
 
     <flux:navbar class="-mb-px max-lg:hidden">
         @foreach($menu as $item)
@@ -39,7 +38,7 @@
 
             <flux:navbar.item icon-trailing="chevron-down" @class(["!bg-pink-50 !border-pink-500 border" => session()->has('loginas')]) >
                 <span class="flex items-center gap-x-2">
-                    @if(session()->has('loginas')) <flux:icon name="shield-exclamation" variant="mini" class="text-pink-500 dark:text-pink-300"/> @endif
+                    @if(session()->has('loginas')) <flux:icon name="shield-exclamation" variant="mini" class="text-pink-500"/> @endif
                     @if(session()->get('no_antenna_scope', false)) <flux:icon name="globe-alt" variant="mini" /> @endif
                     {{auth()->user()->name}}
                 </span>

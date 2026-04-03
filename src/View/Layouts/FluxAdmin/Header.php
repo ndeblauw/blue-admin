@@ -16,7 +16,6 @@ class Header extends Component
     {
         $this->logo = [
             'image' =>  $image = config('blue-admin.fluxlayout.logo.image', null),
-            'image_dark' => config('blue-admin.fluxlayout.logo.darkimage',$image),
             'link' => config('blue-admin.fluxlayout.logo.link', config('app.url')),
             'name' => config('blue-admin.fluxlayout.logo.name', ''),
         ];

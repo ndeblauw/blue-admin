@@ -22,7 +22,7 @@
         class="flex items-center space-x-3"
         x-cloak
     >
-        <span class="dark:text-white ml-4">@lang('Are you sure?')</span>
+        <span class="text-gray-700 ml-4">@lang('Are you sure?')</span>
 
         <form x-on:submit="$dispatch('deleting')" method="post" action="{{ $action }}">
             @csrf
