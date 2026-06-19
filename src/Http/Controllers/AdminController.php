@@ -209,11 +209,11 @@ class AdminController extends Controller
         $policy = 'app'.DIRECTORY_SEPARATOR.'Policies'.DIRECTORY_SEPARATOR.class_basename($class).'Policy.php';
 
         if (!file_exists(base_path($policy))) {
-            Log::warning('Policies enabled, but no <strong>'.$policy.'</strong> found for <strong>'.$class.'</strong>.');
+            Log::info('Policies enabled, but no <strong>'.$policy.'</strong> found for <strong>'.$class.'</strong>.');
 
             $permission = Str::of($this->config->CLASS)->afterLast('\\')->snake().'-'.$ability;
             if(Permission::where('name', $permission)->exists()) {
-                Log::warning('But good backup found, as permission exists: <strong>'.$permission.'</strong>, so checking with that');
+                Log::info('But good backup found, as permission exists: <strong>'.$permission.'</strong>, so checking with that');
                 if( ! auth()->user()->can($permission) ) {
                     abort(403, 'You are not allowed to perform this action.');
                 }
