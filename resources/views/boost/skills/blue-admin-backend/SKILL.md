@@ -15,7 +15,7 @@ A step-by-step workflow for adding admin CRUD resources using `ndeblauw/blue-adm
 
 | Step | Location | What to Create/Wire |
 |------|----------|---------------------|
-| 1 | `routes/web.php` | `Route::resource('xxx', AdminXxxController::class)` inside the `admin` group |
+| 1 | `routes/web.php` | `Route::resource('xxx', XxxController::class)` inside the `admin` group |
 | 2 | `app/Http/Controllers/Admin/XxxController.php` | Empty class, extends `AdminController` (from vendor) |
 | 3 | `app/BlueAdmin/Xxx.php` | Config class, extends `BlueAdminModel`, maps to Eloquent model |
 | 4 | `app/Http/Requests/XxxRequest.php` | FormRequest with validation rules |
@@ -29,10 +29,10 @@ Run `vendor/bin/pint --format agent` after creating or editing any PHP files.
 ## Architecture Overview
 
 ```
-routes/web.php  ─── Route::resource('treatments', AdminTreatmentController::class)
+routes/web.php  ─── Route::resource('treatments', TreatmentController::class)
                            │
                            ▼
-App\Controllers\Admin\TreatmentController   (empty — extends Ndeblauw\BlueAdmin\Http\Controllers\AdminController)
+App\Http\Controllers\Admin\TreatmentController   (empty — extends Ndeblauw\BlueAdmin\Http\Controllers\AdminController)
                            │
                     auto-discovers by class name
                            │
@@ -56,7 +56,7 @@ App\BlueAdmin\Treatment                     (config — maps to Eloquent model)
 ### Auto-Discovery Naming Conventions
 
 ```
-Controller class:      AdminTreatmentController
+Controller class:      TreatmentController
 Config class:          App\BlueAdmin\Treatment          (strips "Controller", prepends App\BlueAdmin)
 FormRequest class:     App\Http\Requests\TreatmentRequest (strips "Controller", appends "Request")
 Eloquent model:        App\Models\Treatment             (from $CLASS property in config)
@@ -71,7 +71,7 @@ Named routes:          admin.treatments.{action}        (same convention as view
 In `routes/web.php`, inside the existing `admin` route group (which has `prefix('admin')`, `name('admin.')`, `middleware(['auth'])`):
 
 ```php
-Route::resource('treatments', AdminTreatmentController::class);
+Route::resource('treatments', TreatmentController::class);
 ```
 
 This registers all 7 RESTful routes: `index`, `create`, `store`, `show`, `edit`, `update`, `destroy`.
