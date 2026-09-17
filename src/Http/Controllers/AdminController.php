@@ -5,6 +5,7 @@ namespace Ndeblauw\BlueAdmin\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -84,13 +85,16 @@ class AdminController extends Controller
         $filepond = $this->filepondPreparations($valid);
         $belongsToMany = $this->belongsToManyPreparations($valid);
 
-        // C - Create the new record
-        $model = ($this->config->CLASS)::create($valid);
+        // C + D1 - Create the new record and deal with relations, atomically
+        $model = DB::transaction(function () use ($valid, $belongsToMany) {
+            $model = ($this->config->CLASS)::create($valid);
 
-        // D1 - Deal with relations - belongsToMany
-        foreach ($belongsToMany as $key => $values) {
-            $model->$key()->sync($values);
-        }
+            foreach ($belongsToMany as $key => $values) {
+                $model->$key()->sync($values);
+            }
+
+            return $model;
+        });
 
         // D2 - Deal with relations - mediafiles
         foreach ($filepond as $key => $fileset) {
@@ -138,15 +142,22 @@ class AdminController extends Controller
         $filepond = $this->filepondPreparations($valid);
         $belongsToMany = $this->belongsToManyPreparations($valid);
 
-        // C - Update the model, check user rights & update
-        $model = ($this->config->CLASS)::findOrFail($id);
-        $this->policyCheck('update', $model);
-        $model->update($valid);
+        // C + D1 - Update the model & relations, serialized per record. The row lock serializes
+        // concurrent updates for the same record, so a second request sees the already attached
+        // pivot rows and cannot insert duplicates (e.g. violating a unique constraint on taggables).
+        $model = DB::transaction(function () use ($valid, $belongsToMany, $id) {
+            $model = ($this->config->CLASS)::query()->lockForUpdate()->findOrFail($id);
 
-        // D1 - Deal with relations - belongsToMany
-        foreach ($belongsToMany as $key => $values) {
-            $model->$key()->sync($values);
-        }
+            $this->policyCheck('update', $model);
+
+            $model->update($valid);
+
+            foreach ($belongsToMany as $key => $values) {
+                $model->$key()->sync($values);
+            }
+
+            return $model;
+        });
 
         // D2 - Deal with relations - mediafiles
         foreach ($filepond as $key => $fileset) {
