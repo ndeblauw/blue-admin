@@ -39,9 +39,9 @@
                 </dl>
             </div>
             <div class="text-sm text-gray-400 px-6 float-right">
-                Last updated <span class="font-bold">{{$model->updated_at->diffForHumans()}}</span> ({{$model->updated_at}})
+                Last updated <span class="font-bold">{{$model->updated_at?->diffForHumans() ?? '-'}}</span> ({{$model->updated_at ?? '-'}})
                 <span class="text-blue-300">|</span>
-                Created <span class="font-bold">{{$model->created_at->diffForHumans()}}</span> ({{$model->created_at}})
+                Created <span class="font-bold">{{$model->created_at?->diffForHumans() ?? '-'}}</span> ({{$model->created_at ?? '-'}})
             </div>
         </div>
 
