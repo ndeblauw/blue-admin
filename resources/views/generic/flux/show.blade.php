@@ -40,9 +40,9 @@
 
         </div>
         <div class="text-xs mt-1 text-zinc-400 pr-2 float-right">
-            Last updated <span class="font-bold">{{$model->updated_at->diffForHumans()}}</span> ({{$model->updated_at}})
+            Last updated <span class="font-bold">{{$model->updated_at?->diffForHumans() ?? '-'}}</span> ({{$model->updated_at ?? '-'}})
             <span class="text-zinc-500">|</span>
-            Created <span class="font-bold">{{$model->created_at->diffForHumans()}}</span> ({{$model->created_at}})
+            Created <span class="font-bold">{{$model->created_at?->diffForHumans() ?? '-'}}</span> ({{$model->created_at ?? '-'}})
         </div>
 
 
