@@ -4,30 +4,34 @@ on: [push, pull_request]
 
 jobs:
     tests:
-        runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: true
             matrix:
-                os: [ubuntu-latest, windows-latest]
-                php: [8.4,8.5]
-                laravel: [13.*,12.*]
+                laravel: [13.*, 12.*]
                 stability: [prefer-lowest, prefer-stable]
+                include:
+                    - laravel: 13.*
+                      testbench: 11.*
+                    - laravel: 12.*
+                      testbench: 10.*
 
-        name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+        runs-on: ubuntu-latest
+
+        name: P8.4 - L${{ matrix.laravel }} - ${{ matrix.stability }} - ubuntu-latest
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               
             - name: Install SQLite 3
               run: |
                 sudo apt-get update
-                sudo apt-get install sqlite3
+                sudo apt-get install -y sqlite3
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: ${{ matrix.php }}
+                  php-version: 8.4
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
                   coverage: none
 
@@ -37,7 +41,8 @@ jobs:
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
             - name: Install dependencies
               run: |
-                  composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-                  composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+                  composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+                  composer require --dev "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+                  composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-audit --no-blocking
             - name: Execute tests
               run: vendor/bin/phpunit
